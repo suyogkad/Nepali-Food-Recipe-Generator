@@ -31,8 +31,9 @@ python app.py
 
 ## Contributing
 
-Your contributions are always welcome! Please have a look at the contributing guidelines first. We want to make contributing to this project as easy and transparent as possible.
+Your contributions are always welcome!
 
 ## License
 
-Distributed under the MIT License. See LICENSE.md for more information.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
