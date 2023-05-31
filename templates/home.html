@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nepali Food Recipe Generator</title>
+</head>
+<body>
+    <h1>Nepali Food Recipe Generator</h1>
+    <form method="POST">
+        <select name="food_type">
+            <option value="Appetizer/Snack">Appetizer/Snack</option>
+            <option value="Breakfast">Breakfast</option>
+
+        </select>
+        <input type="submit" value="Get Recipe">
+    </form>
+
+    {% if recipe %}
+    <h2>{{ recipe['Food Name'] }}</h2>
+    <img src="/static/images/{{ recipe['Image Name'] }}" alt="{{ recipe['Food Name'] }}">
+    <p><h3>Ingredients:</h3>{{ recipe['Ingredients'] }}</p>
+    <p><h3>Instructions:</h3>{{ recipe['Instructions'] }}</p>
+    {% endif %}
+</body>
+</html>
