@@ -14,18 +14,29 @@ The dataset included here was curated personally and contains images sourced fro
 
 This is a Python-based web application and can be run following these steps:
 
+1. Clone the repository:
 ```bash
-# Clone the repo
 git clone https://github.com/suyogkad/Nepali-Food-Recipe-Generator.git
+```
 
-# Move into the directory
+2. Navigate into teh directory:
+```bash
 cd Nepali-Food-Recipe-Generator
+```
 
-# Create a Python virtual environment and activate it
+3. Also, creating a Python virtual environment to isolate the project dependencies is recommended. To create and activate a virtual environment:
+```bash
 python3 -m venv venv
 source venv/bin/activate
+```
 
-# Run the app
+4. Install the required Python packages:
+```bash
+pip install -r requirements.txt
+```
+
+5. Run the application:
+6. ```bash
 python app.py
 ```
 
