@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ```
 
 5. Run the application:
-6. ```bash
+```bash
 python app.py
 ```
 
