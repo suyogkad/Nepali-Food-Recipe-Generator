@@ -4,7 +4,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/suyogkad/Nepali-Food-Recipe-Generator)
 ![GitHub contributors](https://img.shields.io/github/contributors/suyogkad/Nepali-Food-Recipe-Generator)
 
-Welcome to the Nepali-Food-Recipe-Generator repository! This web-based Flask application generates random Nepali food recipes, categorized by meal times: breakfast, appetizers/snacks, lunch, and dinner.
+Welcome everyone! This is a web-based Flask application that generates random Nepali food recipes, categorized by meal times: breakfast, appetizers/snacks, lunch, and dinner.
 
 ## Dataset
 
