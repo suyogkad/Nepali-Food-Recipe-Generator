@@ -1,4 +1,4 @@
-# Nepali-Food-Recipe-Generator
+# Nepali Food Recipe Generator
 
 ![GitHub forks](https://img.shields.io/github/forks/suyogkad/Nepali-Food-Recipe-Generator)
 ![GitHub stars](https://img.shields.io/github/stars/suyogkad/Nepali-Food-Recipe-Generator)
