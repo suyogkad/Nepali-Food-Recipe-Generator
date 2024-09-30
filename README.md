@@ -8,7 +8,7 @@ Welcome everyone! This is a web-based Flask application that generates random Ne
 
 ## Dataset
 
-The dataset included here was curated personally and contains images sourced from the internet. While I do not own all the images in the dataset, I have made an effort to attribute image rights to the rightful owners. If an image you own is included in the dataset and you would like it removed or credited differently, please reach out. The dataset is constantly updating, and your contributions would be greatly appreciated!
+The dataset here is personally curated and contains images sourced from the internet. While I do not own all the images in the dataset, I have made an effort to attribute image rights to the rightful owners. If an image you own is included in the dataset and you would like it removed or credited differently, please reach out. The dataset is constantly updating, and your contributions would be greatly appreciated!
 
 ## Installation
 
