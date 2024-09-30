@@ -42,9 +42,16 @@ python app.py
 
 ## Contributing
 
-Your contributions are always welcome!
+If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. Contributions are especially welcome for improving the dataset, adding new recipes, fixing bugs, or suggesting new features.
 
-## License
+To contribute:
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+1. Fork the repository by clicking the "Fork" button at the top of the repository page.
+2. Clone the forked repository to your local machine:
+   ```bash
+   git clone https://github.com/your-username/Nepali-Food-Recipe-Generator.git
+   ```
+3. Create a new branch for your changes.
+4. Make your changes, commit them, and push the changes to your fork.
+5. Create a pull request to the original repository.
 
