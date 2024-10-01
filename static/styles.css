@@ -3,79 +3,108 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Navigation Bar Styles */
-.navbar {
-    background-color: #16ac7f;
-    padding: 10px 20px;
+/* Header Section */
+.header-section {
+    text-align: center;
+    padding: 20px 0;
 }
 
-.navbar-brand img {
+.header-section h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #b01f24; /* Customize this to your brand color */
+}
+
+.header-section img {
     height: 50px;
 }
 
-.search-wrapper {
+/* Menu Section */
+.menu-section {
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.menu {
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #5d2e2a;
+    transition: all 0.3s ease;
     position: relative;
 }
 
-.form-control {
-    height: 45px;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+.menu-item:hover {
+    text-decoration: none;
+    color: #b01f24; /* Customize hover color */
+    border-bottom: 3px solid #b01f24; /* Add bottom border on hover */
 }
 
-/* Filter Button Styles */
-.filter-btn {
-    height: 45px;
-    background-color:white;
-    border: none;
-    color: #16ac7f;
-    padding: 7px;
-    border-radius: 5px;
-    margin-left: 7px;
-}
+/* Selected Menu Item with Animation */
+.menu-item.active {
+    color: #b01f24;
+    border-bottom: 3px solid #b01f24;
+ }
 
-/* .filter-btn:hover {
-    background-color: #e65c00;
+/* @keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 } */
 
-/* Dropdown Styles */
-.dropdown-menu {
+/* Sticky Menu */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #fff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 10px;
-    width: 200px;
 }
 
-#filterDropdown {
-    position: absolute;
-    top: 50px;
-    right: 0;
+/* Search Section */
+.search-section {
+    background-color: #b01f24;
+    padding: 40px 0;
+    text-align: center;
 }
 
-/* Recipe Card Styles */
-.card {
+.search-section input {
+    width: 50%;
+    border-radius: 20px;
+    padding: 12px 20px;
     border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Recipe Card Section */
+.recipe-card .card {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-.card-title {
+.recipe-card .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-card .card-title {
     font-weight: bold;
-    font-size: 1.25rem;
+    color: #b01f24;
 }
 
-.card-text {
-    color: #555;
-}
-
-.card-body {
-    padding: 20px;
-}
-
-.fixed-image {
+.recipe-card .fixed-image {
     height: 200px;
     object-fit: cover;
     width: 100%;
@@ -84,28 +113,13 @@ body {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: center;
+    .search-section input {
+        width: 80%;
     }
 
-    .search-wrapper {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .filter-btn {
-        position: relative;
-        top: 10px;
-        margin-left: 10px;
-    }
-
-    #filterDropdown {
-        top: 40px;
-        left: auto;
-    }
-
-    .card {
-        margin-bottom: 20px;
+    .menu-item {
+        display: block;
+        text-align: center;
+        padding: 10px;
     }
 }

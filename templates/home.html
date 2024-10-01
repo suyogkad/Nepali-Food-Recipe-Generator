@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Collection</title>
+    <title>Nepali Food Recipe Generator</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- FontAwesome for Icons -->
@@ -14,36 +14,40 @@
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-orange">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static', filename='logo.svg') }}" alt="Logo" style="height: 60px;">
-            </a>
-            <div class="d-flex mx-auto search-wrapper" style="width: 60%;">
-                <input class="form-control w-100" type="search" placeholder="Search recipes..." aria-label="Search" id="search-bar" onkeyup="filterByName()">
-                <div class="dropdown">
-                    <!-- Filter Button -->
-                    <button class="btn btn-outline-light filter-btn" type="button" id="filterIcon" onclick="toggleDropdown()">
-                        <i class="fas fa-filter fa-lg"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right show" id="filterDropdown" style="display: none;">
-                        <select id="food-type-filter" class="form-control" onchange="filterByType(); toggleDropdown();">
-                            <option value="">All</option>
-                            <option value="Appetizer/Snacks">Appetizer/Snacks</option>
-                            <option value="Breakfast">Breakfast</option>
-                            <option value="Dinner">Dinner</option>
-                            <option value="Lunch">Lunch</option>
-                            <option value="Soup">Soup</option>
-                        </select>
-                    </div>
-                </div>
+    <!-- Header with Logo and Title -->
+    <header class="header-section">
+        <div class="container d-flex align-items-center justify-content-center">
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename='logo.svg') }}" alt="Logo" style="height: 50px;">
+                <h1 class="ml-3">Nepali food recipe generator</h1>
             </div>
+        </div>
+    </header>
+
+    <!-- Sticky Menu -->
+    <nav id="sticky-menu" class="menu-section">
+        <div class="container">
+            <ul class="menu list-unstyled d-flex justify-content-center mb-0">
+                <li><a href="#" class="menu-item" data-type="Appetizer/Snacks">Appetizer</a></li>
+                <li><a href="#" class="menu-item" data-type="Breakfast">Breakfast</a></li>
+                <li><a href="#" class="menu-item" data-type="Lunch">Lunch</a></li>
+                <li><a href="#" class="menu-item" data-type="Soup">Soup</a></li>
+                <li><a href="#" class="menu-item" data-type="Dinner">Dinner</a></li>
+            </ul>
         </div>
     </nav>
 
+    <!-- Search Bar Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-wrapper text-center">
+                <input class="form-control w-50 mx-auto" type="search" placeholder="Browse Recipe..." aria-label="Search" id="search-bar" onkeyup="filterByName()">
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipe Cards Section -->
     <div class="container mt-5">
-        <!-- Recipes Card View -->
         <div class="row" id="recipe-cards">
             {% for recipe in recipes %}
             <div class="col-md-4 mb-4 recipe-card" data-name="{{ recipe.name }}" data-type="{{ recipe.food_type }}">
@@ -66,43 +70,55 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <script>
-        // Search by Recipe Name
-        function filterByName() {
-            let searchValue = document.getElementById("search-bar").value.toLowerCase();
-            let cards = document.querySelectorAll(".recipe-card");
-
+        // Sticky Menu on Scroll
+        window.onscroll = function() {
+            stickyMenu();
+        };
+    
+        var menu = document.getElementById("sticky-menu");
+        var sticky = menu.offsetTop;
+    
+        function stickyMenu() {
+            if (window.pageYOffset > sticky) {
+                menu.classList.add("sticky");
+            } else {
+                menu.classList.remove("sticky");
+            }
+        }
+    
+        // Menu item click event listener to filter by food type and add animation
+        document.querySelectorAll('.menu-item').forEach(function(item) {
+            item.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+    
+                // Remove 'active' class from all menu items
+                document.querySelectorAll('.menu-item').forEach(function(link) {
+                    link.classList.remove('active');
+                });
+    
+                // Add 'active' class to the clicked menu item
+                this.classList.add('active');
+    
+                const selectedType = this.getAttribute('data-type');
+                filterByType(selectedType);
+            });
+        });
+    
+        // Filter by food type
+        function filterByType(selectedType) {
+            const cards = document.querySelectorAll(".recipe-card");
+    
             cards.forEach(function(card) {
-                let recipeName = card.getAttribute("data-name").toLowerCase();
-                if (recipeName.includes(searchValue)) {
+                const cardType = card.getAttribute("data-type");
+                if (selectedType === "" || cardType === selectedType) {
                     card.style.display = "block";
                 } else {
                     card.style.display = "none";
                 }
             });
-        }
-
-        // Filter by Food Type
-        function filterByType() {
-            let selectedType = document.getElementById('food-type-filter').value;
-            let cards = document.querySelectorAll(".recipe-card");
-
-            cards.forEach(function(card) {
-                let foodType = card.getAttribute("data-type");
-                if (selectedType === "" || foodType === selectedType) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
-
-        // Directly show food type options after clicking the filter icon
-        function toggleDropdown() {
-            let filterDropdown = document.getElementById("filterDropdown");
-            filterDropdown.style.display = "block"; // Show the dropdown
-            document.getElementById('food-type-filter').focus(); // Focus on the select element
         }
     </script>
+    
 </body>
 
 </html>
