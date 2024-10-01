@@ -1,25 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Nepali Food Recipe Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Collection</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
-    <h1>Nepali Food Recipe Generator</h1>
-    <form method="POST">
-        <select name="food_type">
-            <option value="Appetizer/Snack">Appetizer/Snack</option>
-            <option value="Breakfast">Breakfast</option>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-orange">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='logo.svg') }}" alt="Logo" style="height: 60px;">
+            </a>
+            <div class="d-flex mx-auto search-wrapper" style="width: 60%;">
+                <input class="form-control w-100" type="search" placeholder="Search recipes..." aria-label="Search" id="search-bar" onkeyup="filterByName()">
+                <div class="dropdown">
+                    <!-- Filter Button -->
+                    <button class="btn btn-outline-light filter-btn" type="button" id="filterIcon" onclick="toggleDropdown()">
+                        <i class="fas fa-filter fa-lg"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right show" id="filterDropdown" style="display: none;">
+                        <select id="food-type-filter" class="form-control" onchange="filterByType(); toggleDropdown();">
+                            <option value="">All</option>
+                            <option value="Appetizer/Snacks">Appetizer/Snacks</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Dinner">Dinner</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Soup">Soup</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        </select>
-        <input type="submit" value="Get Recipe">
-    </form>
+    <div class="container mt-5">
+        <!-- Recipes Card View -->
+        <div class="row" id="recipe-cards">
+            {% for recipe in recipes %}
+            <div class="col-md-4 mb-4 recipe-card" data-name="{{ recipe.name }}" data-type="{{ recipe.food_type }}">
+                <div class="card h-100">
+                    <img class="card-img-top fixed-image" src="{{ url_for('static', filename='uploads/' + recipe.image_name) }}" alt="Recipe Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.name }}</h5>
+                        <p class="card-text"><strong>Food Type:</strong> {{ recipe.food_type }}</p>
+                        <p class="card-text"><strong>Date Added:</strong> {{ recipe.date_added.strftime('%Y-%m-%d') }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-    {% if recipe %}
-    <h2>{{ recipe['Food Name'] }}</h2>
-    <img src="/static/images/{{ recipe['Image Name'] }}" alt="{{ recipe['Food Name'] }}">
-    <p><h3>Ingredients:</h3>{{ recipe['Ingredients'] }}</p>
-    <p><h3>Instructions:</h3>{{ recipe['Instructions'] }}</p>
-    {% endif %}
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <script>
+        // Search by Recipe Name
+        function filterByName() {
+            let searchValue = document.getElementById("search-bar").value.toLowerCase();
+            let cards = document.querySelectorAll(".recipe-card");
+
+            cards.forEach(function(card) {
+                let recipeName = card.getAttribute("data-name").toLowerCase();
+                if (recipeName.includes(searchValue)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Filter by Food Type
+        function filterByType() {
+            let selectedType = document.getElementById('food-type-filter').value;
+            let cards = document.querySelectorAll(".recipe-card");
+
+            cards.forEach(function(card) {
+                let foodType = card.getAttribute("data-type");
+                if (selectedType === "" || foodType === selectedType) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Directly show food type options after clicking the filter icon
+        function toggleDropdown() {
+            let filterDropdown = document.getElementById("filterDropdown");
+            filterDropdown.style.display = "block"; // Show the dropdown
+            document.getElementById('food-type-filter').focus(); // Focus on the select element
+        }
+    </script>
 </body>
+
 </html>
