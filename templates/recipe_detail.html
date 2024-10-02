@@ -1,38 +1,75 @@
-<!-- templates/recipe_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ recipe.name }} - Recipe</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
+      href="{{ url_for('static', filename='recipe_detail.css') }}"
     />
   </head>
   <body>
-    <header>
-      <h1>{{ recipe.name }}</h1>
-    </header>
+    <div class="container mt-5">
+      <!-- Recipe Image and Basic Info Section -->
+      <div class="row">
+        <div class="col-md-5 text-center">
+          <img
+            src="{{ url_for('static', filename='uploads/' ~ recipe.image_name) }}"
+            alt="{{ recipe.name }}"
+            class="img-fluid recipe-image"
+          />
+        </div>
+        <div class="col-md-7">
+          <h1 class="recipe-title">{{ recipe.name }}</h1>
+          <ul class="list-unstyled recipe-meta mt-3">
+            <li><strong>Food Type:</strong> {{ recipe.food_type }}</li>
+            <li>
+              <strong>Date Added:</strong> {{
+              recipe.date_added.strftime('%Y-%m-%d') }}
+            </li>
+          </ul>
+        </div>
+      </div>
 
-    <section class="recipe-details">
-      <img
-        src="{{ url_for('static', filename='uploads/' ~ recipe.image_name) }}"
-        alt="{{ recipe.name }}"
-        class="recipe-image"
-      />
-      <h3>Food Type: {{ recipe.food_type }}</h3>
-      <p>Date Added: {{ recipe.date_added.strftime('%Y-%m-%d') }}</p>
+      <!-- Ingredients and Directions Section -->
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h3 class="section-title">Ingredients</h3>
+          <ul class="list-group ingredients-list">
+            {% for ingredient in recipe.ingredients.split('\n') %}
+            <li class="list-group-item">{{ ingredient }}</li>
+            {% endfor %}
+          </ul>
+        </div>
 
-      <h3>Ingredients</h3>
-      <p>{{ recipe.ingredients }}</p>
+        <div class="col-md-6">
+          <h3 class="section-title">Directions</h3>
+          <ol class="list-group directions-list">
+            {% for instruction in recipe.instructions.split('\n') %}
+            <li class="list-group-item">{{ instruction }}</li>
+            {% endfor %}
+          </ol>
+        </div>
+      </div>
 
-      <h3>Instructions</h3>
-      <p>{{ recipe.instructions }}</p>
-    </section>
+      <!-- Footer and Back Button -->
+      <div class="row mt-5">
+        <div class="col text-center">
+          <a href="{{ url_for('home') }}" class="btn btn-primary"
+            >Back to Home</a
+          >
+        </div>
+      </div>
+    </div>
 
-    <footer>
-      <a href="{{ url_for('home') }}">Back to Home</a>
-    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
