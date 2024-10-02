@@ -40,7 +40,6 @@ body {
     font-weight: bold;
     text-decoration: none;
     color: #5d2e2a;
-    transition: all 0.3s ease;
     position: relative;
 }
 
@@ -53,7 +52,6 @@ body {
 /* Selected Menu Item */
 .menu-item.active {
     color: #b01f24;
-    border-bottom: 3px solid #b01f24;
 }
 
 /* Sticky Menu */
@@ -66,11 +64,14 @@ body {
 }
 
 /* Search Section Styles */
+
+
 .search-section {
     background-color: #b01f24;
     padding: 40px 0;
     text-align: center;
     position: relative;
+    
 }
 
 .search-wrapper {
@@ -85,22 +86,24 @@ body {
     padding: 12px 20px;
     border: none;
     font-size: 18px;
-    color: #333;
-    width: 100%;
+    color: #000000;
+    width:50px ;
+    background-color: #ffffff;
 }
 
 .search-icon {
-    background-color:rgb(125, 122, 122);
+    background-color: #b01f241a;
     color: white;
     border-radius: 50px 0 0 50px;
     padding-left: 15px;
 }
 
-.search-btn {
-    background-color: #f0f0f0;
-    border-radius: 0 50px 50px 0;
+/* .search-btn {
+    
+    background-color: #ffffff;
+    border-radius:  50px ;
     font-size: 16px;
-}
+} */
 
 .input-group {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
