@@ -12,7 +12,7 @@ body {
 .header-section h1 {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #b01f24; /* Customize this to your brand color */
+    color: #b01f24;
 }
 
 .header-section img {
@@ -46,21 +46,15 @@ body {
 
 .menu-item:hover {
     text-decoration: none;
-    color: #b01f24; /* Customize hover color */
-    border-bottom: 3px solid #b01f24; /* Add bottom border on hover */
+    color: #b01f24;
+    border-bottom: 3px solid #b01f24;
 }
 
-/* Selected Menu Item with Animation */
+/* Selected Menu Item */
 .menu-item.active {
     color: #b01f24;
     border-bottom: 3px solid #b01f24;
- }
-
-/* @keyframes bounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-} */
+}
 
 /* Sticky Menu */
 .sticky {
@@ -71,19 +65,79 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Search Section */
+/* Search Section Styles */
 .search-section {
     background-color: #b01f24;
     padding: 40px 0;
     text-align: center;
+    position: relative;
 }
 
-.search-section input {
-    width: 50%;
-    border-radius: 20px;
+.search-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 600px;
+}
+
+.search-input {
+    border-radius: 50px;
     padding: 12px 20px;
     border: none;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    color: #333;
+    width: 100%;
+}
+
+.search-icon {
+    background-color:rgb(125, 122, 122);
+    color: white;
+    border-radius: 50px 0 0 50px;
+    padding-left: 15px;
+}
+
+.search-btn {
+    background-color: #f0f0f0;
+    border-radius: 0 50px 50px 0;
+    font-size: 16px;
+}
+
+.input-group {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #b01f24;
+}
+
+/* Suggestions Container */
+.suggestions {
+    background-color: #b01f24;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    padding: 10px 20px;
+    display: none; /* Initially hidden */
+    text-align: left;
+}
+
+.suggestions p {
+    margin: 0;
+    padding: 5px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.suggestions p:hover {
+    background-color: #b01f24;
+    font-weight: bold;
+}
+
+/* Make sure suggestions show up when there are results */
+.show-suggestions {
+    display: block;
 }
 
 /* Recipe Card Section */
@@ -123,3 +177,4 @@ body {
         padding: 10px;
     }
 }
+

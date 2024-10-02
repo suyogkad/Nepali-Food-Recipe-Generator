@@ -34,9 +34,8 @@ class Recipe(db.Model):
     ingredients = db.Column(db.Text, nullable=False)
     instructions = db.Column(db.Text, nullable=False)
     image_name = db.Column(db.String(100), nullable=False)
-    image_reference = db.Column(db.String(200), nullable=False)  # New field for image reference
     food_type = db.Column(db.String(50), nullable=False)
-    date_added = db.Column(db.DateTime, default=datetime.utcnow)  # Automatically add date and time
+    date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
 # Create the database tables (if they don't exist)
 with app.app_context():
@@ -48,7 +47,6 @@ def allowed_file(filename):
 
 # Custom admin view to handle image upload and dropdown for food type
 class RecipeView(ModelView):
-    # Columns to display in the list view
     column_list = ('id', 'name', 'food_type', 'date_added')
 
     # Format the 'date_added' column to show only the date (no time)
@@ -56,16 +54,13 @@ class RecipeView(ModelView):
         'date_added': lambda v, c, m, p: m.date_added.strftime('%Y-%m-%d') if m.date_added else ''
     }
 
-    # Exclude 'date_added' from the form to prevent the date picker from showing up
     form_excluded_columns = ['date_added']
 
-    # Make food_type a dropdown in the form and image_name a file field
     form_overrides = {
         'food_type': SelectField,
         'image_name': FileField
     }
 
-    # Predefine choices for the dropdown
     form_args = {
         'food_type': {
             'choices': [
@@ -79,19 +74,16 @@ class RecipeView(ModelView):
     }
 
     def on_model_change(self, form, model, is_created):
-        # Automatically set the 'date_added' to the current date (without time) when adding a new recipe
         if is_created:
-            model.date_added = datetime.utcnow().date()  # Only store the date, no time
+            model.date_added = datetime.utcnow().date()
 
-        # Check if an image is uploaded
         if form.image_name.data:
             image = form.image_name.data
             if allowed_file(image.filename):
-                # Secure the filename and save it
                 filename = secure_filename(image.filename)
                 filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                 image.save(filepath)
-                model.image_name = filename  # Save the filename to the database
+                model.image_name = filename
 
 # Setup Flask-Admin
 admin = Admin(app, name='Recipe Admin', template_mode='bootstrap3')
@@ -109,7 +101,7 @@ def home():
             recipe = random.choice(recipes)
             return render_template('home.html', recipe=recipe)
     else:
-        recipes = Recipe.query.all()  # Display all recipes on the home page by default
+        recipes = Recipe.query.all()
     return render_template('home.html', recipes=recipes)
 
 if __name__ == '__main__':

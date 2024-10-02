@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }} - Recipe Details</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .recipe-container {
+            padding: 20px;
+        }
+
+        .recipe-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .recipe-header img {
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .recipe-info {
+            max-width: 500px;
+        }
+
+        .ingredients, .directions {
+            background-color: #fde6e6;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .ingredients ul, .directions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ingredients ul li::before, .directions ul li::before {
+            content: '• ';
+            color: red;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .serve-text {
+            text-align: center;
+            font-size: 2rem;
+            color: #d50000;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container recipe-container">
+        <!-- Recipe Header -->
+        <div class="recipe-header">
+            <img src="{{ url_for('static', filename='uploads/' + recipe.image_name) }}" alt="{{ recipe.name }}">
+            <div class="recipe-info">
+                <h1>{{ recipe.name }}</h1>
+                <p>Recipe by <strong>{{ recipe.author }}</strong></p>
+                <p><strong>Rating:</strong> {{ recipe.rating }} <i class="fas fa-star"></i> ({{ recipe.reviews }} Ratings)</p>
+                <p><strong>Total Time:</strong> {{ recipe.total_time }} min</p>
+                <p><strong>Level:</strong> {{ recipe.level }}</p>
+                <p><strong>Servings:</strong> {{ recipe.servings }}</p>
+                <p><strong>Nutrition per serving:</strong> {{ recipe.nutrition }} calories</p>
+            </div>
+        </div>
+
+        <!-- Recipe Details -->
+        <div class="row">
+            <!-- Ingredients Section -->
+            <div class="col-md-6 ingredients">
+                <h4>Ingredients</h4>
+                <ul>
+                    {% for ingredient in recipe.ingredients %}
+                    <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Directions Section -->
+            <div class="col-md-6 directions">
+                <h4>Directions</h4>
+                <ul>
+                    {% for step in recipe.steps %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Serve and Enjoy -->
+        <div class="serve-text">
+            Serve and Enjoy!
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

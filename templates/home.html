@@ -18,8 +18,9 @@
     <header class="header-section">
         <div class="container d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center">
+                <!-- Ensure the logo file is located in the correct directory -->
                 <img src="{{ url_for('static', filename='logo.svg') }}" alt="Logo" style="height: 50px;">
-                <h1 class="ml-3">Nepali food recipe generator</h1>
+                <h1 class="ml-3">Nepali Food Recipe Generator</h1>
             </div>
         </div>
     </header>
@@ -28,6 +29,7 @@
     <nav id="sticky-menu" class="menu-section">
         <div class="container">
             <ul class="menu list-unstyled d-flex justify-content-center mb-0">
+                <li><a href="#" class="menu-item" data-type="all">All</a></li>
                 <li><a href="#" class="menu-item" data-type="Appetizer/Snacks">Appetizer</a></li>
                 <li><a href="#" class="menu-item" data-type="Breakfast">Breakfast</a></li>
                 <li><a href="#" class="menu-item" data-type="Lunch">Lunch</a></li>
@@ -38,13 +40,25 @@
     </nav>
 
     <!-- Search Bar Section -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-wrapper text-center">
-                <input class="form-control w-50 mx-auto" type="search" placeholder="Browse Recipe..." aria-label="Search" id="search-bar" onkeyup="filterByName()">
+<section class="search-section">
+    <div class="container">
+        <div class="search-wrapper text-center">
+            <div class="input-group mb-3" id="search-container">
+                <span class="input-group-prepend">
+                    <div class="input-group-text search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </span>
+                <input class="form-control search-input" type="search" placeholder="Browse Recipe..." aria-label="Search" id="search-bar" onkeyup="filterByName()">
+                <button class="btn btn-light search-btn" type="button">Search</button>
             </div>
         </div>
-    </section>
+        <div id="suggestions-container" class="suggestions">
+            <!-- Suggestions will appear here -->
+        </div>
+    </div>
+</section>
+
 
     <!-- Recipe Cards Section -->
     <div class="container mt-5">
@@ -70,14 +84,16 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <script>
+        let currentMenuFilter = 'all'; // Initially show all recipes
+
         // Sticky Menu on Scroll
-        window.onscroll = function() {
+        window.onscroll = function () {
             stickyMenu();
         };
-    
+
         var menu = document.getElementById("sticky-menu");
         var sticky = menu.offsetTop;
-    
+
         function stickyMenu() {
             if (window.pageYOffset > sticky) {
                 menu.classList.add("sticky");
@@ -85,40 +101,49 @@
                 menu.classList.remove("sticky");
             }
         }
-    
+
         // Menu item click event listener to filter by food type and add animation
-        document.querySelectorAll('.menu-item').forEach(function(item) {
-            item.addEventListener('click', function(event) {
+        document.querySelectorAll('.menu-item').forEach(function (item) {
+            item.addEventListener('click', function (event) {
                 event.preventDefault(); // Prevent default anchor behavior
-    
+
                 // Remove 'active' class from all menu items
-                document.querySelectorAll('.menu-item').forEach(function(link) {
+                document.querySelectorAll('.menu-item').forEach(function (link) {
                     link.classList.remove('active');
                 });
-    
+
                 // Add 'active' class to the clicked menu item
                 this.classList.add('active');
-    
+
                 const selectedType = this.getAttribute('data-type');
-                filterByType(selectedType);
+                currentMenuFilter = selectedType;
+                filterByNameAndType(); // Apply both search and menu filters
             });
         });
-    
-        // Filter by food type
-        function filterByType(selectedType) {
+
+        // Filter by food type and search name
+        function filterByNameAndType() {
+            const searchValue = document.getElementById("search-bar").value.toLowerCase();
             const cards = document.querySelectorAll(".recipe-card");
-    
-            cards.forEach(function(card) {
+
+            cards.forEach(function (card) {
+                const cardName = card.getAttribute("data-name").toLowerCase();
                 const cardType = card.getAttribute("data-type");
-                if (selectedType === "" || cardType === selectedType) {
+
+                // Check if it matches both menu filter and search input
+                if ((currentMenuFilter === "all" || cardType === currentMenuFilter) && (cardName.includes(searchValue) || searchValue === "")) {
                     card.style.display = "block";
                 } else {
                     card.style.display = "none";
                 }
             });
         }
+
+        // Search by Recipe Name
+        function filterByName() {
+            filterByNameAndType(); // Reuse the filter function
+        }
     </script>
-    
 </body>
 
 </html>
