@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -91,7 +91,7 @@ admin = Admin(app, name='Recipe Admin', template_mode='bootstrap3')
 # Add Recipe model to Flask-Admin
 admin.add_view(RecipeView(Recipe, db.session))
 
-
+# Home route to display all recipes
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -103,6 +103,13 @@ def home():
     else:
         recipes = Recipe.query.all()
     return render_template('home.html', recipes=recipes)
+
+# Route to display a single recipe based on its ID
+@app.route('/recipe/<int:id>', methods=['GET'])
+def recipe_detail(id):
+    # Fetch the recipe by its ID
+    recipe = Recipe.query.get_or_404(id)
+    return render_template('recipe_detail.html', recipe=recipe)
 
 if __name__ == '__main__':
     app.run(debug=True)

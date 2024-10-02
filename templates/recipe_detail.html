@@ -1,0 +1,38 @@
+<!-- templates/recipe_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ recipe.name }} - Recipe</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>{{ recipe.name }}</h1>
+    </header>
+
+    <section class="recipe-details">
+      <img
+        src="{{ url_for('static', filename='uploads/' ~ recipe.image_name) }}"
+        alt="{{ recipe.name }}"
+        class="recipe-image"
+      />
+      <h3>Food Type: {{ recipe.food_type }}</h3>
+      <p>Date Added: {{ recipe.date_added.strftime('%Y-%m-%d') }}</p>
+
+      <h3>Ingredients</h3>
+      <p>{{ recipe.ingredients }}</p>
+
+      <h3>Instructions</h3>
+      <p>{{ recipe.instructions }}</p>
+    </section>
+
+    <footer>
+      <a href="{{ url_for('home') }}">Back to Home</a>
+    </footer>
+  </body>
+</html>
